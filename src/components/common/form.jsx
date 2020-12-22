@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Input from './input';
 import Joi from 'joi-browser';
+import Select from './select';
 
 class Form extends Component {
   state = {
@@ -72,19 +73,16 @@ class Form extends Component {
     );
   };
 
-  renderSelect = (name, label, data) => {
+  renderSelect = (name, label, options) => {
+    const { data, errors } = this.state;
     return (
-      <div className="form-group">
-        <label htmlFor={name}>{label}</label>
-        <select className="form-control" name={name} id={name}>
-          <option value=""></option>
-          {data.map((item) => (
-            <option key={item._id} value={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      <Select
+        name={name}
+        label={label}
+        value={data[name]}
+        options={options}
+        error={errors[name]}
+      />
     );
   };
 }
