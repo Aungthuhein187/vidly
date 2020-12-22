@@ -1,6 +1,9 @@
 import React from 'react';
 import Form from './common/form';
 import Joi from 'joi-browser';
+import { getGenres } from '../services/fakeGenreService';
+import { getMovie } from '../services/fakeMovieService';
+import { saveMovie } from './../services/fakeMovieService';
 
 class MovieForm extends Form {
   state = {
@@ -30,8 +33,31 @@ class MovieForm extends Form {
       .label('Daily rental rate'),
   };
 
+  componentDidMount = () => {
+    const genres = getGenres();
+    this.setState({ genres });
+
+    const movieId = this.props.match.params.id;
+    if (movieId === 'new') return;
+
+    const movie = getMovie(movieId);
+    if (!movie) return this.props.history.replace('/not-found');
+
+    this.setState({ data: this.mapToViewModel(movie) });
+  };
+
+  mapToViewModel = (movie) => {
+    return {
+      _id: movie._id,
+      title: movie.title,
+      genreId: movie.genre._id,
+      numberInStock: movie.numberInStock,
+      dailyRentalRate: movie.dailyRentalRate,
+    };
+  };
+
   doSubmit = () => {
-    console.log('Movie Created');
+    saveMovie(this.state.data);
     this.props.history.push('/movies');
   };
 
@@ -40,7 +66,7 @@ class MovieForm extends Form {
       <form onSubmit={this.handleSubmit}>
         <h1>Movie Form</h1>
         {this.renderInput('title', 'Title')}
-        {this.renderInput('genreId', 'Genre')}
+        {this.renderSelect('genreId', 'Genre', this.state.genres)}
         {this.renderInput('numberInStock', 'Number in stock', 'number')}
         {this.renderInput('dailyRentalRate', 'Rate', 'number')}
         {this.renderButton('Save')}

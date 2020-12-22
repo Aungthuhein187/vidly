@@ -71,6 +71,22 @@ class Form extends Component {
       />
     );
   };
+
+  renderSelect = (name, label, data) => {
+    return (
+      <div className="form-group">
+        <label htmlFor={name}>{label}</label>
+        <select className="form-control" name={name} id={name}>
+          <option value=""></option>
+          {data.map((item) => (
+            <option key={item._id} value={item.id}>
+              {item.name}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  };
 }
 
 export default Form;
