@@ -66,8 +66,8 @@ class Form extends Component {
         name={name}
         label={label}
         value={data[name]}
-        error={errors[name]}
         type={type}
+        error={errors[name]}
         onChange={this.handleChange}
       />
     );
@@ -82,6 +82,7 @@ class Form extends Component {
         value={data[name]}
         options={options}
         error={errors[name]}
+        onChange={this.handleChange}
       />
     );
   };

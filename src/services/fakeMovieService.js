@@ -1,4 +1,4 @@
-// import * as genereAPI from './fakeGenreService';
+import * as genereAPI from './fakeGenreService';
 
 const movies = [
   {
@@ -135,15 +135,15 @@ export function getMovie(id) {
 
 export function saveMovie(movie) {
   let movieIndb = movies.find((m) => m._id === movie._id) || {};
-  movieIndb.name = movie.name;
-  movieIndb.genre = movie.genre;
+  movieIndb.title = movie.title;
+  movieIndb.genre = genereAPI.genres.find((g) => g._id === movie.genreId);
   movieIndb.numberInStock = movie.numberInStock;
   movieIndb.dailyRentalRate = movie.dailyRentalRate;
 
   if (!movieIndb._id) {
+    movieIndb._id = Date.now.toString();
     movies.push(movieIndb);
-  } else {
-    let index = movies.indexOf(movieIndb);
-    movies[index] = movieIndb;
   }
+
+  return movieIndb;
 }
