@@ -6,8 +6,8 @@ import Pagination from './common/pagination';
 import { paginate } from './common/paginate';
 import ListGroup from './common/listGroup';
 import { Link } from 'react-router-dom';
-import _ from 'lodash';
 import SearchBox from './common/searchBox';
+import _ from 'lodash';
 
 class Movies extends Component {
   state = {
