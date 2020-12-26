@@ -12,6 +12,8 @@ const obj = {
   logout,
 };
 
+http.setJwt(getJwt());
+
 async function login(user) {
   const { data: jwt } = await http.post(apiEndpoint, {
     email: user.username,
