@@ -7,6 +7,8 @@ import LoginForm from './components/loginForm';
 import RegisterForm from './components/registerForm';
 import Rentals from './components/rentals';
 import NotFound from './components/not-found';
+import Logout from './components/logout';
+import Profile from './components/profile';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import './App.css';
@@ -30,6 +32,8 @@ class App extends Component {
           <Switch>
             <Route path="/movies/:id" component={MovieForm} />
             <Route path="/movies" component={Movies} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/logout" component={Logout} />
             <Route path="/movies/new" component={MovieForm} />
             <Route path="/register" component={RegisterForm} />
             <Route path="/customers" component={Customers} />
