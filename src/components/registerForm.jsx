@@ -1,4 +1,5 @@
 import Form from './common/form';
+import userService from '../services/userService';
 import Joi from 'joi-browser';
 
 class RegisterForm extends Form {
@@ -13,8 +14,9 @@ class RegisterForm extends Form {
     name: Joi.string().required().label('Name'),
   };
 
-  doSubmit = () => {
-    console.log('Register');
+  doSubmit = async () => {
+    const response = await userService.register(this.state.data);
+    console.log(response);
   };
 
   render() {
