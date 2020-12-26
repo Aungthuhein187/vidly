@@ -9,8 +9,8 @@ class MovieForm extends Form {
     data: {
       title: '',
       genreId: '',
-      numberInStock: '',
-      dailyRentalRate: '',
+      numberInStock: 0,
+      dailyRentalRate: 0,
     },
     genres: [],
     errors: {},
@@ -65,8 +65,8 @@ class MovieForm extends Form {
     };
   };
 
-  doSubmit = () => {
-    saveMovie(this.state.data);
+  doSubmit = async () => {
+    await saveMovie(this.state.data);
     this.props.history.push('/movies');
   };
 

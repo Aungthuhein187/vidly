@@ -1,7 +1,7 @@
 import Form from './common/form';
 import authService from '../services/authService';
-import Joi from 'joi-browser';
 import { Redirect } from 'react-router-dom';
+import Joi from 'joi-browser';
 
 class LoginForm extends Form {
   state = {
