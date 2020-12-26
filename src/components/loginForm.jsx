@@ -1,4 +1,5 @@
 import Form from './common/form';
+import authService from '../services/authService';
 import Joi from 'joi-browser';
 
 class LoginForm extends Form {
@@ -12,8 +13,10 @@ class LoginForm extends Form {
     password: Joi.string().required().label('Password'),
   };
 
-  doSubmit = () => {
-    console.log('Submitted');
+  doSubmit = async () => {
+    const { data: jwt } = await authService.login(this.state.data);
+    localStorage.setItem('token', jwt);
+    window.location = '/';
   };
 
   render() {
