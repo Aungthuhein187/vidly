@@ -7,6 +7,7 @@ const tokenKey = 'token';
 const obj = {
   login,
   loginWithJwt,
+  getJwt,
   getCurrentUser,
   logout,
 };
@@ -22,6 +23,10 @@ async function login(user) {
 
 function loginWithJwt(jwt) {
   localStorage.setItem(tokenKey, jwt);
+}
+
+function getJwt() {
+  return localStorage.getItem(tokenKey);
 }
 
 function getCurrentUser() {
