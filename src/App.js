@@ -9,6 +9,7 @@ import Rentals from './components/rentals';
 import NotFound from './components/not-found';
 import Logout from './components/logout';
 import Profile from './components/profile';
+import ProtectedRoute from './components/protectedRoute';
 import authService from './services/authService';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
@@ -28,18 +29,17 @@ class App extends Component {
         <NavBar user={user} />
         <main className="container">
           <Switch>
-            <Route path="/movies/:id" component={MovieForm} />
+            <ProtectedRoute path="/movies/:id" component={MovieForm} />
             <Route
               path="/movies"
               render={(props) => <Movies {...props} user={user} />}
             />
-            <Route path="/profile" component={Profile} />
-            <Route path="/logout" component={Logout} />
-            <Route path="/movies/new" component={MovieForm} />
             <Route path="/register" component={RegisterForm} />
+            <Route path="/login" component={LoginForm} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/profile" component={Profile} />
             <Route path="/customers" component={Customers} />
             <Route path="/rentals" component={Rentals} />
-            <Route path="/login" component={LoginForm} />
             <Route path="/not-found" component={NotFound} />
             <Redirect from="/" exact to="/movies" />
             <Redirect to="/not-found" />
