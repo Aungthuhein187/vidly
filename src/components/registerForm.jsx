@@ -15,9 +15,19 @@ class RegisterForm extends Form {
   };
 
   doSubmit = async () => {
-    const response = await userService.register(this.state.data);
-    localStorage.setItem('token', response.headers['x-auth-token']);
-    window.location = '/';
+    try {
+      const response = await userService.register(this.state.data);
+      localStorage.setItem('token', response.headers['x-auth-token']);
+      window.location = '/';
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        this.setState({
+          errors: {
+            username: error.response.data,
+          },
+        });
+      }
+    }
   };
 
   render() {
