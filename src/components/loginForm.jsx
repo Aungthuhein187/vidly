@@ -1,6 +1,7 @@
 import Form from './common/form';
 import authService from '../services/authService';
 import Joi from 'joi-browser';
+import { Redirect } from 'react-router-dom';
 
 class LoginForm extends Form {
   state = {
@@ -16,7 +17,6 @@ class LoginForm extends Form {
   doSubmit = async () => {
     try {
       await authService.login(this.state.data);
-
       const { state } = this.props.location;
       window.location = state ? state.from.pathname : '/';
     } catch (error) {
@@ -31,6 +31,7 @@ class LoginForm extends Form {
   };
 
   render() {
+    if (authService.getCurrentUser()) return <Redirect to="/" />;
     return (
       <form onSubmit={this.handleSubmit}>
         <h1>Login</h1>
