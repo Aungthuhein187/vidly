@@ -14,9 +14,19 @@ class LoginForm extends Form {
   };
 
   doSubmit = async () => {
-    const { data: jwt } = await authService.login(this.state.data);
-    localStorage.setItem('token', jwt);
-    window.location = '/';
+    try {
+      const { data: jwt } = await authService.login(this.state.data);
+      localStorage.setItem('token', jwt);
+      window.location = '/';
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        this.setState({
+          errors: {
+            username: error.response.data,
+          },
+        });
+      }
+    }
   };
 
   render() {
