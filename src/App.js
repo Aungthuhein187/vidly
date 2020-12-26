@@ -9,19 +9,15 @@ import Rentals from './components/rentals';
 import NotFound from './components/not-found';
 import Logout from './components/logout';
 import Profile from './components/profile';
+import authService from './services/authService';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
 import './App.css';
 
 class App extends Component {
   state = {};
 
   componentDidMount() {
-    try {
-      const jwt = localStorage.getItem('token');
-      const user = jwt_decode(jwt);
-      this.setState({ user });
-    } catch (error) {}
+    this.setState({ user: authService.getCurrentUser() });
   }
 
   render() {
